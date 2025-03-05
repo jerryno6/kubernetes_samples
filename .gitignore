@@ -1,0 +1,2 @@
+# Ignore VS Code SFTP configuration
+.vscode/sftp.json
