@@ -1,2 +1,5 @@
 # Ignore VS Code SFTP configuration
 .vscode/sftp.json
+
+# Ignore .env
+.env
