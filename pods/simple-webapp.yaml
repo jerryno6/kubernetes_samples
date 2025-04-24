@@ -1,0 +1,21 @@
+# a simple webapp with a specific title
+apiVersion: v1
+kind: Pod
+metadata:
+  name: simple-webapp-111
+  labels:
+    app: simple-webapp
+spec:
+  containers:
+  - image: kodekloud/simple-webapp:red
+    name: simple-webapp
+    ports:
+    - containerPort: 8080
+      protocol: TCP
+    resources:
+      limits:
+        memory: "2Gi"
+        cpu: 4
+      requests:
+        memory: "128Mi"
+        cpu: 1

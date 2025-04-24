@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: webapp-conntest
+  labels:
+    app: webapp-conntest
+spec:
+  containers:
+  - image: kodekloud/webapp-conntest
+    name: webapp-conntest
+    ports:
+    - protocol: TCP
+      containerPort: 8080
+    env:
+    - name: BG_COLOR
+      value: blue
+    - name: APP_NAME
+      value: webapp-blue
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "1Gi"
+      requests:
+        memory: "64Mi"
+        cpu: "250m"
