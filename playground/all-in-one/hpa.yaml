@@ -2,6 +2,7 @@ apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
   name: simple-web-app-hpa
+  namespace: test
 spec:
   maxReplicas: 5
   minReplicas: 1

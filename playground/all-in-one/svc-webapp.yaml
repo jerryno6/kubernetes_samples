@@ -2,6 +2,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: webapp-service
+  namespace: test
 spec:
   selector:
     name: simple-webapp-mysql
@@ -9,3 +10,4 @@ spec:
   ports:
   - port: 8080
     targetPort: 8080
+    nodePort: 31031

@@ -22,4 +22,4 @@ spec:
         cpu: "1Gi"
       requests:
         memory: "64Mi"
-        cpu: "250m"
+        cpu: "0.25"

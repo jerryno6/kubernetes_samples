@@ -1,22 +1,14 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: allow-conntest-ingress
+  name: allow-all-traffic
   namespace: default
 spec:
-  podSelector:
-    matchLabels:
-      app: be # all pod with this label
+  podSelector: {} # empty selector matches all pods in the namespace
   policyTypes:
-  - Ingress
-  - Egress
+    - Ingress
+    - Egress
   ingress:
-    - from:
-      - podSelector:
-          matchLabels:
-            app: fe # allow all incoming traffic from pods with this label
-        namespaceSelector:
-          matchLabels:
-            name: default # allow all incoming traffic from pods in this namespace
+    - {} # allow all incoming traffic
   egress:
     - {} # allow all outgoing traffic
