@@ -10,16 +10,9 @@ spec:
     image: kodekloud/webapp-color
     ports:
       - containerPort: 8080
-    # envFrom:
-    #   - configMapRef:
-    #       name: app-config
     env: 
       - name: APP_COLOR 
         value: blue
-        # valueFrom:
-        #   configMapKeyRef:
-        #     name: app-config
-        #     key: APP_COLOR
     resources:
       limits:
         memory: "2Gi"
