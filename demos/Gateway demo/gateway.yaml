@@ -9,7 +9,7 @@ spec:
   - name: http
     protocol: HTTP
     hostname: localhost
-    port: 8080
+    port: 80
     allowedRoutes:
       namespaces:
         from: Same
