@@ -4,18 +4,18 @@ name: kind
 nodes:
 - role: control-plane
 - role: worker
-  extraPortMappings:
-  - containerPort: 5432
-    hostPort: 5432 # PostgreSQL
-    listenAddress: "0.0.0.0"
-  - containerPort: 8080
-    hostPort: 8080 # HTTP
-    listenAddress: "0.0.0.0"
   labels:
     tier: kindWorker1
-# - role: worker
-#   labels:
-#     tier: kindWorker2
+  # extraPortMappings:
+  # - containerPort: 5432
+  #   hostPort: 5432 # PostgreSQL
+  #   listenAddress: "0.0.0.0"
+  # - containerPort: 8080
+  #   hostPort: 8080 # HTTP
+  #   listenAddress: "0.0.0.0"
+- role: worker
+  labels:
+    tier: kindWorker2
 networking:
   # WARNING: It is _strongly_ recommended that you keep this the default
   # (127.0.0.1) for security reasons. However it is possible to change this.
