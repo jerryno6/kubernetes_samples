@@ -1,0 +1,60 @@
+# a simple webapp with a specific title
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simple-webapp
+  labels:
+    app: simple-webapp
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: simple-webapp
+  template:
+    metadata:
+      labels:
+        app: simple-webapp
+    spec:
+      # ⬇⬇⬇ This ensures pods will land on separate hosts
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions: [{ key: app, operator: In, values: [simple-webapp] }]
+              topologyKey: "kubernetes.io/hostname"
+
+      # ⬇⬇⬇ Containers
+      containers:
+      - image: kodekloud/simple-webapp:red
+        name: simple-webapp
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        resources: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: simple-webapp-svc
+  annotations:
+    # metallb.io/loadBalancerIPs: 192.168.9.1
+    metallb.io/address-pool: first-pool
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+  selector:
+    app: simple-webapp
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: simple-webapp-clusterip
+spec:
+  ports:
+  - port: 9090
+    targetPort: 8080
+  selector:
+    app: simple-webapp
+  type: ClusterIP
