@@ -37,12 +37,12 @@ kind: Service
 metadata:
   name: simple-webapp-svc
   # only use this for testing, not in production
-  annotations:
+  # annotations:
     # metallb.io/loadBalancerIPs: 192.168.9.1
-    metallb.io/address-pool: first-pool
+    # metallb.io/address-pool: first-pool
 spec:
   ports:
-  - port: 8080
+  - port: 80
     targetPort: 8080
   selector:
     app: simple-webapp
