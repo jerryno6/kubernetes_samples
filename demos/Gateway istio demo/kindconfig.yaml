@@ -6,13 +6,6 @@ nodes:
 - role: worker
   labels:
     tier: kindWorker1
-  # extraPortMappings:
-  # - containerPort: 5432
-  #   hostPort: 5432 # PostgreSQL
-  #   listenAddress: "0.0.0.0"
-  # - containerPort: 8080
-  #   hostPort: 8080 # HTTP
-  #   listenAddress: "0.0.0.0"
 - role: worker
   labels:
     tier: kindWorker2

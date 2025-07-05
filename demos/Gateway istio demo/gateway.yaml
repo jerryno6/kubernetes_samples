@@ -4,6 +4,7 @@ kind: Gateway
 metadata:
   name: api-gateway
 spec:
+  loadBalancerIP: 192.168.97.10
   gatewayClassName: istio
   listeners:
   - name: http
