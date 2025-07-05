@@ -14,10 +14,10 @@ kubectl get crd gateways.gateway.networking.k8s.io &> /dev/null || \
 
 ## Install metalLB
 
-2.1 Install MetalLB `https://metallb.io/installation/`
+2.1 Install MetalLB https://metallb.io/installation
 
-2.2 Config MetalLB with a pool of IPs that you can use for your services. For example, if you are using Kind, you can use the following config `https://metallb.io/configuration/`
-`k apply -f metallb-config.yaml`
+2.2 Config MetalLB using the following command `k apply -f metallb-config.yaml`
+read more at: https://metallb.io/installation/
 
 ## Create Apps & routes
 
