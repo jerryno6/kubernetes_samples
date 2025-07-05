@@ -36,6 +36,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: simple-webapp-svc
+  # only use this for testing, not in production
   annotations:
     # metallb.io/loadBalancerIPs: 192.168.9.1
     metallb.io/address-pool: first-pool
