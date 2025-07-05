@@ -4,12 +4,11 @@ kind: Gateway
 metadata:
   name: api-gateway
 spec:
-  loadBalancerIP: 192.168.97.10
   gatewayClassName: istio
   listeners:
   - name: http
     protocol: HTTP
-    hostname: localhost
+    # hostname: localhost
     port: 80
     allowedRoutes:
       namespaces:
@@ -22,10 +21,11 @@ metadata:
 spec:
   parentRefs:
   - name: api-gateway
-  hostnames:
-  - "localhost"
-  - "abc.com"
-  - "www.abc.com"
+  # hostnames:
+  # - "192.168.97.10"
+  # - "localhost"
+  # - "abc.com"
+  # - "www.abc.com"
   rules:
   - matches:
     - path:
@@ -34,12 +34,26 @@ spec:
     filters:
       - type: URLRewrite
         urlRewrite:
-          hostname: localhost
+          # hostname: localhost
           path:
             type: ReplacePrefixMatch
             replacePrefixMatch: /
     backendRefs:
     - name: nginx-service
+      port: 8080
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /simple-webapp
+    filters:
+      - type: URLRewrite
+        urlRewrite:
+          # hostname: localhost
+          path:
+            type: ReplacePrefixMatch
+            replacePrefixMatch: /
+    backendRefs:
+    - name: simple-webapp-service
       port: 8080
   # - matches:
   #   - path:
