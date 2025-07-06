@@ -1,0 +1,119 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simple-webapp
+  labels:
+    app: simple-webapp
+  namespace: simple-webapp
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: simple-webapp
+  template:
+    metadata:
+      labels:
+        app: simple-webapp
+    spec:
+      containers:
+      - image: kodekloud/simple-webapp:red
+        name: simple-webapp
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        resources: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: simple-webapp-service
+  labels:
+    app: simple-webapp
+  namespace: simple-webapp
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8080
+    targetPort: 8080
+    protocol: TCP
+    name: http
+  selector:
+    app: simple-webapp
+---
+# ⬇⬇⬇ another simple webapp with just 1 replica, use this to test weighted routingContainers
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simple-webapp2
+  labels:
+    app: simple-webapp2
+  namespace: simple-webapp
+spec:
+  selector:
+    matchLabels:
+      app: simple-webapp2
+  template:
+    metadata:
+      labels:
+        app: simple-webapp2
+    spec:
+      containers:
+      - image: kodekloud/simple-webapp:red
+        name: simple-webapp2
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        resources: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: simple-webapp-service2
+  labels:
+    app: simple-webapp2
+  namespace: simple-webapp
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8080
+    targetPort: 8080
+    protocol: TCP
+    name: http
+  selector:
+    app: simple-webapp2
+---
+
+# HTTPRoute for simple-webapp and simple-webapp2
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: nginx-route
+  namespace: simple-webapp
+spec:
+  parentRefs:
+  - name: api-gateway
+    namespace: infra
+  # hostnames:
+  # - "192.168.97.10"
+  # - "localhost"
+  # - "abc.com"
+  # - "www.abc.com"
+  rules:
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /simple-webapp
+    filters:
+      - type: URLRewrite
+        urlRewrite:
+          # hostname: localhost
+          path:
+            type: ReplacePrefixMatch
+            replacePrefixMatch: /
+    backendRefs:
+    - name: simple-webapp-service
+      port: 8080
+      weight: 66
+    - name: simple-webapp-service2
+      port: 8080
+      weight: 34

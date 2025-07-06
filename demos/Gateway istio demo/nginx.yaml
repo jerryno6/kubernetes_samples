@@ -1,0 +1,68 @@
+# nginx app
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: nginx
+  name: nginx
+  labels:
+    app: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: nginx
+  name: nginx-service
+  labels:
+    app: nginx
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 80
+    protocol: TCP
+    name: http
+  selector:
+    app: nginx
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  namespace: nginx
+  name: nginx-route
+spec:
+  parentRefs:
+  - name: api-gateway
+    namespace: infra
+  # hostnames:
+  # - "192.168.97.10"
+  # - "localhost"
+  # - "abc.com"
+  # - "www.abc.com"
+  rules:
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /nginx
+    filters:
+      - type: URLRewrite
+        urlRewrite:
+          # hostname: localhost
+          path:
+            type: ReplacePrefixMatch
+            replacePrefixMatch: /
+    backendRefs:
+    - name: nginx-service
+      port: 80
