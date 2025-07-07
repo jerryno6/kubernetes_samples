@@ -11,7 +11,6 @@ kubectl -n kubernetes-dashboard port-forward svc/kubernetes-dashboard-kong-proxy
 
 ## Create a service account and cluster role binding then get the token
 
-
 ```bash
 k apply -f dashboard-service-account.yaml
 kubectl get secret admin-user -n kubernetes-dashboard -o jsonpath="{.data.token}" | base64 -d

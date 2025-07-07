@@ -7,6 +7,7 @@ metadata:
 spec:
   gatewayClassName: istio
   listeners:
+  # If all the services are using https, we can use only one listener for https
   - name: http
     protocol: HTTP
     # hostname: localhost

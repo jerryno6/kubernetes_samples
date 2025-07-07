@@ -47,6 +47,7 @@ spec:
   - name: api-gateway
     namespace: infra
     sectionName: https  # Explicit reference to HTTPS listener
+    port: 443
   # hostnames:
   # - "192.168.97.10"
   # - "localhost"
