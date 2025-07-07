@@ -41,11 +41,12 @@ apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
   namespace: nginx
-  name: nginx-route
+  name: nginx-route-tls
 spec:
   parentRefs:
   - name: api-gateway
     namespace: infra
+    sectionName: https  # Explicit reference to HTTPS listener
   # hostnames:
   # - "192.168.97.10"
   # - "localhost"
@@ -59,7 +60,6 @@ spec:
     filters:
       - type: URLRewrite
         urlRewrite:
-          # hostname: localhost
           path:
             type: ReplacePrefixMatch
             replacePrefixMatch: /

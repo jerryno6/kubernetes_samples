@@ -21,3 +21,10 @@ spec:
     allowedRoutes:
       namespaces:
         from: All # should use Selector for the most secure option
+    tls:
+      mode: Terminate
+      certificateRefs:
+        # - name: tls-cert
+        - name: generic-tls-secret # your TLS certificate secret
+          kind: Secret
+          namespace: infra
