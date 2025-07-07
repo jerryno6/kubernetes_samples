@@ -16,7 +16,7 @@ spec:
         app: simple-webapp
     spec:
       containers:
-      - image: kodekloud/simple-webapp:red
+      - image: kodekloud/simple-webapp:blue
         name: simple-webapp
         ports:
         - containerPort: 8080
@@ -58,7 +58,7 @@ spec:
         app: simple-webapp2
     spec:
       containers:
-      - image: kodekloud/simple-webapp:red
+      - image: kodekloud/simple-webapp:green
         name: simple-webapp2
         ports:
         - containerPort: 8080
@@ -102,7 +102,7 @@ spec:
   - matches:
     - path:
         type: PathPrefix
-        value: /simple-webapp
+        value: /web
     filters:
       - type: URLRewrite
         urlRewrite:
