@@ -9,10 +9,15 @@ helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dash
 kubectl -n kubernetes-dashboard port-forward svc/kubernetes-dashboard-kong-proxy 8443:443
 ```
 
-## Create a service account and cluster role binding then get the token
+## Create a service account and cluster role binding
 
 ```bash
 k apply -f dashboard-service-account.yaml
+```
+
+## Get the admin user token
+
+```bash
 kubectl get secret admin-user -n kubernetes-dashboard -o jsonpath="{.data.token}" | base64 -d
 ```
 

@@ -54,3 +54,16 @@ spec:
       port: 8000
     # - name: kubernetes-dashboard-kong-proxy
     #   port: 443
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /dashboard/api
+    filters:
+      - type: URLRewrite
+        urlRewrite:
+          path:
+            type: ReplacePrefixMatch
+            replacePrefixMatch: /api
+    backendRefs:
+    - name: kubernetes-dashboard-api
+      port: 8000
