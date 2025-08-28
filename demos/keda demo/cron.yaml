@@ -1,0 +1,16 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: cron-scaledobject
+  namespace: default
+spec:
+  scaleTargetRef:
+    name: webapp-deployment
+  triggers:
+  - type: cron
+    metadata:
+      timezone: Asia/Jakarta
+      # scale to 5 replicas in 15 minutes
+      start: 30 * * * * # run at the minute 30 of every hour for example: 7H30
+      end: 45 * * * *   # end at the minute 45 of every hour for example: 7H45
+      desiredReplicas: "5"
