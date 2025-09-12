@@ -16,3 +16,6 @@ Delete the cluster
 ```
 kind delete cluster --name kind
 ```
+
+## External accesss:
+https://sergiogimenez.com/posts/2025/deploy-kind-cluster-with-external-access/
