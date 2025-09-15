@@ -3,12 +3,17 @@
 ## Install istio
 
 - Install istio via website ambient mode, download istio file and add it to your PATH
-   Follow the instructions at:
-`https://istio.io/latest/docs/setup/getting-started/`
+   Follow the instructions at `https://istio.io/latest/docs/setup/getting-started/`
 
-`bin/istioctl install --set profile=ambient --skip-confirmation`
+```bash
+curl -L https://istio.io/downloadIstio | sh -
+cd istio-1.27.1
+export PATH=$PWD/bin:$PATH
+```
 
-- Run the command to install CRD
+`istioctl install --set profile=ambient --skip-confirmation`
+
+- Run the command to install the Kubernetes Gateway API CRDs
 
 ```bash
 kubectl get crd gateways.gateway.networking.k8s.io &> /dev/null || \

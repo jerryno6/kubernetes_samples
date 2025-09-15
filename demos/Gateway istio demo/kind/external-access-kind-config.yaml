@@ -8,9 +8,9 @@ nodes:
       kind: ClusterConfiguration
       apiServer:
         certSANs:
-        - "172.1.2.1" # <-- REPLACE with your host IP
+        - "192.168.1.30" # <-- REPLACE with your host IP
         - "localhost"
-        - "127.0.0.1"        
+        - "127.0.0.1"
   extraPortMappings:
     - containerPort: 6443
       hostPort: 6443

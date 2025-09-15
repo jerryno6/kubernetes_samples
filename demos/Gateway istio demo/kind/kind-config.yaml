@@ -3,15 +3,12 @@ apiVersion: kind.x-k8s.io/v1alpha4
 name: kind
 nodes:
 - role: control-plane
+  extraPortMappings:
+    - containerPort: 8000
+      hostPort: 8000
 - role: worker
-  labels:
-    tier: kindWorker1
 - role: worker
-  labels:
-    tier: kindWorker2
 - role: worker
-  labels:
-    tier: kindWorker3
 networking:
   # WARNING: It is _strongly_ recommended that you keep this the default
   # (127.0.0.1) for security reasons. However it is possible to change this.
